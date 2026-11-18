@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="نبتة - مساحة شخصية لتنظيم يومك ومهامك وأفكارك ومصاريفك.">
+  <title>نبتة | مساعدك اليومي</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">ن</div>
+        <div><strong>نبتة</strong><small>مساحتك تنمو معك</small></div>
+      </div>
+      <div class="profile-card">
+        <div class="avatar">م</div>
+        <div><strong id="profileName">صديقي</strong><small>أهلاً بيك 👋</small></div>
+        <button class="icon-btn" id="editProfile" title="تعديل الاسم">✎</button>
+      </div>
+      <nav class="nav-menu" aria-label="التنقل الرئيسي">
+        <button class="nav-link active" data-view="overview"><span>⌂</span> الرئيسية</button>
+        <button class="nav-link" data-view="tasks"><span>✓</span> المهام</button>
+        <button class="nav-link" data-view="notes"><span>▤</span> الملاحظات</button>
+        <button class="nav-link" data-view="budget"><span>◈</span> المصروفات</button>
+        <button class="nav-link" data-view="habits"><span>✦</span> العادات</button>
+        <button class="nav-link" data-view="focus"><span>◷</span> التركيز</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-box"><span>🌱</span><p>كل خطوة صغيرة اليوم تصنع فرقاً كبيراً غداً.</p></div>
+        <button class="nav-link" data-view="settings"><span>⚙</span> الإعدادات</button>
+        <small class="version">الإصدار 1.0.0 · يعمل دون إنترنت</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-btn" id="menuToggle" aria-label="فتح القائمة">☰</button>
+        <div class="topbar-title"><span class="eyebrow" id="todayLabel">مساحة يومك</span><h1 id="pageTitle">صباح الخير ✨</h1></div>
+        <div class="top-actions">
+          <button class="icon-btn" id="themeToggle" title="تغيير المظهر">☼</button>
+          <button class="primary-btn" id="quickAdd">＋ إضافة جديدة</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="welcome-banner">
+          <div><span class="banner-tag">ابدأ ببساطة</span><h2>أهلاً بيك في نبتة 🌿</h2><p>رتّب أفكارك، تابع تقدمك، وخلي يومك أخف وأسهل.</p></div>
+          <div class="banner-art" aria-hidden="true">🌱</div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon purple">✓</div><span>مهام مكتملة</span><strong id="statDone">0</strong><small>من إجمالي مهامك</small></article>
+          <article class="stat-card"><div class="stat-icon orange">◷</div><span>مهام متبقية</span><strong id="statPending">0</strong><small>خطوة وراء خطوة</small></article>
+          <article class="stat-card"><div class="stat-icon green">✦</div><span>عادات اليوم</span><strong id="statHabits">0/0</strong><small>استمر على تقدمك</small></article>
+          <article class="stat-card"><div class="stat-icon blue">◈</div><span>مصروفات الشهر</span><strong id="statSpent">0 ج.م</strong><small>تابع ميزانيتك</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><span class="eyebrow">أهم ما لديك</span><h3>مهام اليوم</h3></div><button class="text-btn" data-goto="tasks">عرض الكل ←</button></div>
+            <div id="overviewTasks" class="compact-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><span class="eyebrow">خطوة يومية</span><h3>عاداتك</h3></div><button class="text-btn" data-goto="habits">متابعة ←</button></div>
+            <div id="overviewHabits" class="habit-mini-list"></div>
+          </article>
+        </div>
+        <article class="panel quote-panel"><div class="quote-icon">❝</div><div><h3 id="dailyQuote">ابدأ بما تستطيع، ومن حيث أنت.</h3><p>مش لازم تكون مثالي؛ المهم تفضل بتحاول.</p></div><button class="icon-btn" id="newQuote" title="اقتباس آخر">↻</button></article>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="section-intro"><div><span class="eyebrow">خطط ونفّذ</span><h2>قائمة المهام</h2><p>حوّل أفكارك لخطوات واضحة.</p></div><button class="primary-btn" id="addTask">＋ مهمة جديدة</button></div>
+        <div class="toolbar"><div class="tabs" id="taskFilters"><button class="tab active" data-filter="all">الكل</button><button class="tab" data-filter="open">قيد التنفيذ</button><button class="tab" data-filter="done">مكتملة</button></div><input class="search-input" id="taskSearch" placeholder="ابحث عن مهمة..." aria-label="البحث في المهام"></div>
+        <div id="taskList" class="task-list"></div>
+      </section>
+
+      <section class="view" id="view-notes">
+        <div class="section-intro"><div><span class="eyebrow">أفكارك في مكان واحد</span><h2>الملاحظات</h2><p>اكتب أي فكرة قبل ما تنساها.</p></div><button class="primary-btn" id="addNote">＋ ملاحظة جديدة</button></div>
+        <div class="toolbar"><input class="search-input full-search" id="noteSearch" placeholder="ابحث في ملاحظاتك..." aria-label="البحث في الملاحظات"></div>
+        <div id="noteGrid" class="notes-grid"></div>
+      </section>
+
+      <section class="view" id="view-budget">
+        <div class="section-intro"><div><span class="eyebrow">إدارة أموالك</span><h2>المصروفات</h2><p>سجل مصروفاتك وخليك عارف فلوسك بتروح فين.</p></div><button class="primary-btn" id="addExpense">＋ إضافة مصروف</button></div>
+        <div class="budget-summary"><div><span>إجمالي مصروفات الشهر</span><strong id="budgetTotal">0 ج.م</strong></div><div><span>عدد العمليات</span><strong id="budgetCount">0</strong></div><div><span>متوسط العملية</span><strong id="budgetAverage">0 ج.م</strong></div></div>
+        <article class="panel"><div class="panel-heading"><div><span class="eyebrow">سجلّك</span><h3>آخر المصروفات</h3></div></div><div id="expenseList" class="expense-list"></div></article>
+      </section>
+
+      <section class="view" id="view-habits">
+        <div class="section-intro"><div><span class="eyebrow">تغيير صغير كل يوم</span><h2>العادات اليومية</h2><p>علّم على العادات اللي أنجزتها النهارده.</p></div><button class="primary-btn" id="addHabit">＋ عادة جديدة</button></div>
+        <div class="habit-progress panel"><div><span>تقدمك اليوم</span><strong id="habitProgressText">0%</strong></div><div class="progress-track"><div id="habitProgressBar" class="progress-fill"></div></div></div>
+        <div id="habitList" class="habit-grid"></div>
+      </section>
+
+      <section class="view" id="view-focus">
+        <div class="focus-wrap">
+          <span class="eyebrow">وقت لنفسك</span><h2>جلسة تركيز</h2><p>اختار مهمة واحدة، وابعد عن المشتتات شوية.</p>
+          <div class="timer-card"><div class="timer-ring"><div class="timer-inner"><strong id="timerDisplay">25:00</strong><span id="timerStatus">جاهز للتركيز</span></div></div>
+            <div class="timer-presets"><button class="preset active" data-minutes="25">25 دقيقة</button><button class="preset" data-minutes="15">15 دقيقة</button><button class="preset" data-minutes="5">5 دقائق</button></div>
+            <div class="timer-actions"><button class="primary-btn" id="timerStart">ابدأ</button><button class="secondary-btn" id="timerReset">إعادة ضبط</button></div>
+          </div>
+          <div class="focus-note">💡 جرّب تشتغل 25 دقيقة وبعدها خد استراحة قصيرة.</div>
+        </div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="section-intro"><div><span class="eyebrow">تحكم في تجربتك</span><h2>الإعدادات</h2><p>بياناتك محفوظة على جهازك.</p></div></div>
+        <div class="settings-grid">
+          <article class="panel setting-row"><div><h3>نسخة احتياطية</h3><p>صدّر بياناتك أو استرجع نسخة محفوظة.</p></div><div class="setting-actions"><button class="secondary-btn" id="exportData">تصدير البيانات</button><label class="secondary-btn file-label">استيراد<input type="file" id="importData" accept="application/json"></label></div></article>
+          <article class="panel setting-row"><div><h3>مسح البيانات</h3><p>حذف كل المهام والملاحظات والمصروفات والعادات من هذا الجهاز.</p></div><button class="danger-btn" id="clearData">مسح الكل</button></article>
+          <article class="panel setting-row"><div><h3>عن نبتة</h3><p>تطبيق شخصي بسيط لتنظيم اليوم. لا يحتاج إلى حساب أو اتصال بالإنترنت.</p></div><span class="about-mark">ن</span></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><h3 id="modalTitle">إضافة جديدة</h3><button class="icon-btn" id="modalClose" aria-label="إغلاق">×</button></div>
+      <form id="modalForm"><div id="modalFields"></div><div class="modal-actions"><button type="button" class="secondary-btn" id="modalCancel">إلغاء</button><button type="submit" class="primary-btn">حفظ</button></div></form>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+  <script src="tools.js"></script>
+</body>
+</html>
